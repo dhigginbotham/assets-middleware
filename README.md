@@ -15,7 +15,6 @@ Step 3) Use like any regular middleware
 #### Create array of assets
 
 ```coffee
-
 middleware = (req, res, next) ->
 
   scripts = [
@@ -23,7 +22,8 @@ middleware = (req, res, next) ->
     {src: '/stylesheets/normalize.css', name: 'normalize', where: 'head', uri: null, type: 'css', exclude: null}
     {src: '/stylesheets/app.css', name: 'app', where: 'head', uri: null, type: 'css', exclude: null}
     {src: '/stylesheets/custom.css', name: 'custom', where: 'head', uri: null, type: 'css', exclude: null}
-    {src: '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', name: 'font-awesome.css', where: 'head', uri: null, type: 'css', exclude: null}
+    {src: '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', name: 'font-awesome.css', where: 'head', 
+    uri: null, type: 'css', exclude: null}
   ]
 
   opts = 
@@ -34,7 +34,6 @@ middleware = (req, res, next) ->
 
   res.locals.assets = dependencies.embed
   next()
-
 ```
 #### Includes files
 
@@ -44,10 +43,8 @@ middleware = (req, res, next) ->
 if (assets)
   each asset in assets.head.css
     link(href="#{asset.src}", rel="stylesheet")
-      
   each asset in assets.head.js
     script(type="text/javascript", src="#{asset.src}")
-
 ```
 
 ```jade
@@ -58,7 +55,6 @@ if (assets)
     link(href="#{asset.src}", rel="stylesheet")
   each asset in assets.foot.js
     script(type="text/javascript", src="#{asset.src}")
-
 ```
 ### License
 
