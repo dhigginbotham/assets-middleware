@@ -7,9 +7,59 @@ I wrote this because I didn't really need something super complex, just simple a
 ### Installation
 
 Step 1) `npm install git+https://github.com/dhigginbotham/assets-middleware --save`
+
 Step 2) explore `/examples` folder/files
+
 Step 3) Use like any regular middleware
 
+#### Create array of assets
+
+```coffee
+
+middleware = (req, res, next) ->
+
+  scripts = [
+    # css for app
+    {src: '/stylesheets/normalize.css', name: 'normalize', where: 'head', uri: null, type: 'css', exclude: null}
+    {src: '/stylesheets/app.css', name: 'app', where: 'head', uri: null, type: 'css', exclude: null}
+    {src: '/stylesheets/custom.css', name: 'custom', where: 'head', uri: null, type: 'css', exclude: null}
+    {src: '//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css', name: 'font-awesome.css', where: 'head', uri: null, type: 'css', exclude: null}
+  ]
+
+  opts = 
+  assets: scripts
+
+  dependencies = new assets req, opts
+  dependencies.make()
+
+  res.locals.assets = dependencies.embed
+  next()
+
+```
+#### Includes files
+
+```jade
+//- head.jade
+
+if (assets)
+  each asset in assets.head.css
+    link(href="#{asset.src}", rel="stylesheet")
+      
+  each asset in assets.head.js
+    script(type="text/javascript", src="#{asset.src}")
+
+```
+
+```jade
+//- foot.jade
+
+if (assets)
+  each asset in assets.foot.css
+    link(href="#{asset.src}", rel="stylesheet")
+  each asset in assets.foot.js
+    script(type="text/javascript", src="#{asset.src}")
+
+```
 ### License
 
 ```md
