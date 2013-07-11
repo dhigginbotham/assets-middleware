@@ -27,13 +27,13 @@ middleware = (req, res, next) ->
   ]
 
   opts = 
-  assets: scripts
+    assets: scripts
 
-  dependencies = new assets req, opts
-  dependencies.make()
+  assets = new asset req, opts
 
-  res.locals.assets = dependencies.embed
-  next()
+  assets.make (embed) ->
+    res.locals.assets = embed
+    next()
 ```
 #### Includes files
 

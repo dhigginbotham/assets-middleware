@@ -19,7 +19,7 @@ assets = (req, opts) ->
 
   @
 
-assets::make = () ->
+assets::make = (fn) ->
   
   self = @
   
@@ -30,4 +30,6 @@ assets::make = () ->
         (asset.exclude != self.route or asset.exclude != self._url)
           self.embed[asset.where][asset.type].push asset
 
+  fn @embed
+  
 module.exports = assets

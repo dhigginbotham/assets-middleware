@@ -1,4 +1,4 @@
-assets = require "./"
+asset = require "./"
 
 middle = {}
 
@@ -16,19 +16,23 @@ middle.embed = (req, res, next) ->
     {src: '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', name: 'jquery.js', where: 'head', uri: null, type: 'js', exclude: null}
     {src: 'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js', name: 'angular.min', where: 'foot', uri: '/dashboard/make/:cid', type: 'js', exclude: null}
     {src: 'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js', name: 'angular-resource.min', where: 'foot', uri: '/dashboard/make/:cid', type: 'js', exclude: null}
+    {src: '/lib/app.js', name: 'app', where: 'foot', uri: '/dashboard/make/:cid', type: 'js', exclude: null}
+    # {src: '/lib/controllers.js', name: 'controllers', where: 'foot', uri: '/dashboard/make/:cid', type: 'js', exclude: null}
+    # {src: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js', name: 'underscore-min', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '/javascripts/vendor/chart.min.js', name: 'chart.min.js', where: 'head', uri: null, type: 'js', exclude: null}
     # {src: 'http://cdn.jsdelivr.net/restangular/0.6.1/restangular.min.js', name: 'restangular.min', where: 'foot', uri: null, type: 'js', exclude: null}
     # {src: '/javascripts/vendor/coffeescript.js', name: 'coffeescript', where: 'foot', uri: null, type: 'js', exclude: null}
     {src: '//cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation.min.js', name: 'foundation.min', where: 'foot', uri: null, type: 'js', exclude: null}
+    # {src: '/lib/app.js', name: 'dashboard.app', where: 'foot', uri: null, type: 'js', exclude: null}
   ]
 
   opts = 
     assets: scripts
 
-  dependencies = new assets req, opts
-  dependencies.make()
+  assets = new asset req, opts
 
-  res.locals.assets = dependencies.embed
-  next()
+  assets.make (embed) ->
+    res.locals.assets = embed
+    next()
 
 module.exports = middle
